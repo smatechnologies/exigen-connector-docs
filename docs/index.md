@@ -1,5 +1,6 @@
 ---
 slug: '/'
+sidebar_label: 'Exigen Connector'
 hide_table_of_contents: true
 ---
 
