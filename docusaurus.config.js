@@ -1,34 +1,27 @@
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+// @ts-check
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: 'SMA Technologies Help',
   tagline: 'Exigen Connector',
   url: 'https://help.smatechnologies.com',
   baseUrl: '/opcon/connectors/exigen/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
   favicon: 'img/favicon.ico',
   organizationName: 'smatechnologies',
   projectName: 'exigen-connector-docs',
-  themeConfig: {
-    navbar: {
-      title: 'Help',
-      logo: {
-        alt: 'SMA Technologies Help Logo',
-        src: 'img/logo.svg',
-        href: 'https://help.smatechnologies.com',
-      },
-    },
-    footer: {
-      style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} SMA Technologies.`,
-    },
-  },
+
   presets: [
     [
-      '@docusaurus/preset-classic',
-      {
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
         docs: {
-          breadcrumbs: false,
+          breadcrumbs: true,
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
@@ -41,14 +34,38 @@ module.exports = {
           trackingID: 'G-7XYMFXX81Y',
           anonymizeIP: false,
         },
-      },
+      }),
     ],
   ],
+
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: 'Help',
+        logo: {
+          alt: 'SMA Technologies Help Logo',
+          src: 'img/logo.svg',
+          href: 'https://help.smatechnologies.com',
+        },
+      },
+      footer: {
+        style: 'dark',
+        copyright: `Copyright © ${new Date().getFullYear()} SMA Technologies.`,
+      },
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true,
+        },
+      },
+    }),
+
   plugins: [
     [
-      require.resolve('@cmfcmf/docusaurus-search-local'), 
-      {
-      }
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {},
     ],
   ],
 };
+
+module.exports = config;

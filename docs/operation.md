@@ -1,68 +1,125 @@
+---
+title: Operation
+sidebar_label: Operation
+description: "Configure and run Exigen jobs in OpCon using the Exigen job subtype, including CREATE and START operations, job parameters, and failure criteria."
+tags:
+  - Reference
+  - Automation Engineer
+  - Operations Staff
+  - Jobs
+---
+
 # Operation
 
-The Enterprise Manager includes job subtype definitions for the Exigen Application. The job subtype can be accessed by selecting the Exigen job subtype from the drop down list when the Windows Job Type has been selected. 
+## What is it?
 
-## Exigen Job definitions
-The Exigen Definition, defines various jobs that can be executed within the Exigen environment using the defined web services. 
-These include the **CREATE** and **START** Job Group operations. 
+The Exigen job subtype in Enterprise Manager provides the fields needed to define and submit Exigen jobs through OpCon. Using the subtype, you can create Exigen job groups from a list of existing Exigen jobs, start predefined job groups, pass runtime parameters to individual jobs within a group, and define failure criteria based on the Exigen completion codes.
 
-The job definition consists of 2 separate areas, with a general area required by all jobs and specific information required depending on the selected job type (CREATE, START). 
+- Use the **CREATE** operation when you need OpCon to define a new job group in Exigen, start it, and monitor it for completion
+- Use the **START** operation when a job group already exists in Exigen and you need OpCon to start it and monitor it for completion
+- Use job parameters when individual jobs within a group require runtime values at execution time
 
-### General Information
-The general area contains the following fields:
+## Exigen job definitions
 
-Field     | Description
---------- | -----------
-**User Id**          | Required field, defining the Windows batch user that the connector will be executed under.
-**Connector Path**   | Required field that contains the installed location of the Exigen Connector. This consists of a global property value which contains the root installation directory. Default value is **ExigenPath**. If more than one Exigen Connector is installed on the same system, then an additional global property should be defined and the entry in this field updated. 
-**Operation**        | Required field that contains the  Cegid operation to execute. Select CREATE or START from the drop down list. Depending which function is selected, additional information can be entered in the appropriate TAB definition.
+To create an Exigen job in OpCon, select the **Exigen** job subtype from the list when a Windows job type is selected. The job definition consists of a general area required by all jobs and operation-specific tabs for **CREATE** and **START** jobs.
 
-### CREATE Exigen Operation Information
-The Create Job Group TAB is associated with the CREATE operation and is used to define a job group that will be created in the Exigen environment. The names of the jobs to add to the job group are defined and the wait for job completion flag can also be set. It should be noted that the wait for job completion context is the completion of the job group creation and the start of the job group. Once the job group has been started successfully, the job group is monitored for completion. The completion code is then returned to OpCon by the Exigen Connector.
+### General information
 
-The Create Definition TAB area contains the following fields:
+The following fields appear for all Exigen job types:
 
-Field     | Description
---------- | -----------
-**Job Group Name**          | Required field that defines the name of the job group to create in the Exigen environment.
-**Wait for Job Completion** | An indicator to inform the connector to wait for job group successful creation before starting the job group and monitoring for job group completion.  
-**Jobs to Add to Group**    | Required field and defines the jobs that must be added to the job group that will be created. The jobs must exist in the Exigen repository. To add a job to the group, enter the job name and select the Add button. To update a job name, select the job in the Job List, modify the name and select the Update button. To remove a job from the select, select the job in the Job List and select the Remove button. 
+| Field | Required | Description |
+|---|---|---|
+| **User Id** | Yes | The Windows batch user under which the connector runs. |
+| **Connector Path** | Yes | The installation path of the Exigen Connector. Uses the `[[ExigenPath]]` global property by default. If more than one connector instance is installed on the same server, define an additional global property and update this field. |
+| **Operation** | Yes | The Exigen operation to run. Select **CREATE** or **START** from the list. The corresponding tab becomes active based on this selection. |
 
-### START Exigen Operation Information
-The Start Job Group TAB is associated with the START operation and is used to define a job group that must be started within Exigen environment. It should be noted that the wait for job completion context is the completion of the start of the job group. Once the job group has been started successfully, the job group is monitored for completion. The completion code is then returned to OpCon by the Exigen Connector.
+### CREATE operation
 
-Field     | Description
---------- | -----------
-**Job Group Name**          | Required field that defines the name of the job group to create in the Exigen environment.
-**Wait for Job Completion** | An indicator to inform the connector to wait for job group successful creation before starting the job group and monitoring for job group completion.  
+The **Create Job Group** tab is associated with the **CREATE** operation. Use it to define a job group that OpCon will create in the Exigen environment, then start and monitor for completion.
 
-### Job Parameters
-The Job Parameters TAB is associated with the CREATE and START operations and is used to pass parameters to the jobs within the group. To pass parameters to a job within the job group, the job must be identified and the parameters entered on a single line in name value pairs. 
+**NOTE:** The wait-for-completion setting applies to the job group creation and start sequence. Once the job group starts, the connector monitors the group until it finishes and returns the completion code to OpCon.
 
-Field     | Description
---------- | -----------
-**Job Name**          | Required field that contains the name of the job that parameters will be defined for.
-**Parameters**        | Required field that contains the parameters to be passed to the job in name value pairs. Pairs must be separated by a comma (i.e. name1=value1,name2=value2). To add a parameter definition, enter the information in the Job Name and Parameters fields and select the Add button. To modify a definition, select the definition in the table, then update the values in the Job Name and Parameters fields and select the Update button. To remove a definition, select the definition in the table and select the Remove button.
- 
-### Failure Criteria
-The CREATE and START operations require a Failure Criteria definition. The Exigen returned codes are mapped to the following values.
-This means that any other than a zero (0) is considered an error completion.
+The **Create Definition** tab contains the following fields:
 
-```
-Completion Codes
+| Field | Required | Description |
+|---|---|---|
+| **Job Group Name** | Yes | The name of the job group to create in Exigen. |
+| **Wait for Job Completion** | No | When selected, the connector waits for the job group to be created successfully before starting the group and monitoring for completion. |
+| **Jobs to Add to Group** | Yes | The jobs to add to the group. Jobs must exist in the Exigen repository. To add a job, enter the job name and select the **Add** button. To update a job name, select the job in the list, modify the name, and select the **Update** button. To remove a job, select it in the list and select the **Remove** button. |
 
-0	Success.
-1	Invalid Request.
-2	Invalid Job Parameters.
-3	Failed to Execute.
-4	Not Executed.
-5	Job Group already exists.
-6	Job Group does not exist.
-7	Job does not exist.
+### START operation
 
-```
+The **Start Job Group** tab is associated with the **START** operation. Use it to start a predefined job group in Exigen and monitor it for completion.
 
-## Logging and Job Output
-The default logging implemented by the connector consists of a maximum cycle of five log files. The log files contain information about the Exigen Connector and any jobs run by the Exigen Connector. The log files are located in the **'installation root\log'** directory. Information is appended into the log files and any error messages, return codes can be viewed in these log files.
+**NOTE:** The wait-for-completion setting applies to the job group start sequence. Once the group starts, the connector monitors it until it finishes and returns the completion code to OpCon.
 
+| Field | Required | Description |
+|---|---|---|
+| **Job Group Name** | Yes | The name of the predefined job group to start in Exigen. |
+| **Wait for Job Completion** | No | When selected, the connector waits for the job group to start successfully before monitoring for completion. |
 
+### Job parameters
+
+The **Job Parameters** tab is associated with both the **CREATE** and **START** operations. Use it to pass runtime parameters to individual jobs within the group.
+
+| Field | Required | Description |
+|---|---|---|
+| **Job Name** | Yes | The name of the job within the group that will receive the parameters. |
+| **Parameters** | Yes | The parameters to pass to the job, in name-value pairs separated by commas (for example, `name1=value1,name2=value2`). To add a parameter definition, enter the job name and parameters and select the **Add** button. To modify a definition, select it in the table, update the fields, and select the **Update** button. To remove a definition, select it and select the **Remove** button. |
+
+## Failure criteria
+
+The **CREATE** and **START** operations require a failure criteria definition. Exigen returns a numeric completion code that the connector maps to an OpCon job status. Any code other than `0` is treated as an error.
+
+| Code | Meaning |
+|---|---|
+| `0` | Success |
+| `1` | Invalid request |
+| `2` | Invalid job parameters |
+| `3` | Failed to run |
+| `4` | Not run |
+| `5` | Job group already exists |
+| `6` | Job group does not exist |
+| `7` | Job does not exist |
+
+## Logging and job output
+
+The connector maintains a rotating set of up to five log files. Log files contain information about the connector and all jobs it runs, including error messages and return codes.
+
+Log files are located in the `log` directory under the connector installation root (for example, `C:\ExigenConnector\log`). Information is appended to the log files as jobs run.
+
+## FAQs
+
+**What is the difference between CREATE and START?**
+Use **CREATE** when the job group does not yet exist in the Exigen environment and you want OpCon to define it and run it. Use **START** when the job group already exists in Exigen and you only need OpCon to trigger and monitor it.
+
+**Can I pass parameters to multiple jobs within the same group?**
+Yes. Add one entry per job in the **Job Parameters** tab. Each entry associates a job name with its parameter string.
+
+**What does a completion code of 5 mean?**
+Code `5` means the job group already exists in Exigen. This typically occurs when a **CREATE** operation is run for a group that was not cleaned up from a previous run.
+
+**How many log files does the connector keep?**
+The connector keeps up to five rotating log files. When the maximum is reached, the oldest log file is overwritten.
+
+**What happens if the Exigen web service is unavailable?**
+The connector will fail with an error and return a non-zero completion code to OpCon. Check the log files in the `log` directory for details.
+
+## Glossary
+
+**Completion code** — A numeric value returned by the Exigen environment to indicate the result of a job group operation. A value of `0` indicates success; any other value indicates an error.
+
+**CREATE** — An Exigen job operation that defines a new job group in the Exigen environment, adds the specified jobs to the group, starts the group, and monitors it for completion.
+
+**Job group** — A named collection of jobs defined in the Exigen environment. Job groups are the unit of execution triggered by the Exigen Connector.
+
+**Job Parameters tab** — The Enterprise Manager tab used to define runtime parameters passed to individual jobs within an Exigen job group.
+
+**START** — An Exigen job operation that starts a predefined job group in the Exigen environment and monitors it for completion.
+
+**Wait for Job Completion** — A connector setting that controls whether the connector waits for the job group creation or start to complete successfully before monitoring the group for final completion.
+
+**Related topics:**
+
+- [Overview](./overview.md)
+- [Installation](./installation.md)

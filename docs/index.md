@@ -1,20 +1,49 @@
 ---
 slug: '/'
-sidebar_label: 'Exigen Connector'
+hide_table_of_contents: true
 ---
 
 # Exigen Connector
 
-The Exigen Application is an Insurance package from the EIS group.  The Exigen Connector interacts with the internal scheduler of the Exigen Package starting batch jobs within the Exigen environment and reporting the completion status back to OpCon.   
+The Exigen Connector integrates OpCon with the Exigen insurance platform (EIS Group), enabling OpCon to start batch jobs within the Exigen environment and report completion status back to OpCon.
 
-The connector implementation consists of a Windows batch program that is executed by the Windows Agent. The job definitions are entered as Windows jobs using the Exigen job subtype. When the job is scheduled by OpCon, the definitions are passed as arguments to the Exigen Connector.
+<div style={{display: 'flex', gap: '0.75rem', alignItems: 'flex-start', flexWrap: 'wrap', marginTop: '1rem'}}>
 
-The Exigen Connector supports the following job types **CREATE** and **START** which can used be used to communicate with the Exigen application environment.
+<div style={{flex: '1', minWidth: '160px', display: 'flex', flexDirection: 'column', gap: '0.6rem'}}>
 
-- CREATE Can be used to define a job group consisting of the defined jobs. Once the job group has been created successfully, the job group is started and monitored for completion and the completion code is returned to OpCon. 
-         The jobs in the OpCon definition, must exists within the Exigen repository. It is possible to pass parameter information to the jobs associated with the job group.
-- START  Can be used to start a predefined job group. The job group is monitored for completion and the completion code is returned to OpCon. It is possible to pass parameter information to the jobs associated with the job group.  
+<div style={{background: 'var(--ifm-card-background-color)', border: '1px solid var(--ifm-color-emphasis-400)', borderRadius: '10px', padding: '0.75rem 1rem'}}>
 
-The job definitions are passed to the Exigen Connector as arguments. The connector uses the BatchJobTrigger.wsdl definition to define the web services end points. 
-The job definition information received from OpCon are mapped to the appropriate structures and the web service is then called. 
+### Get started
 
+- [Overview](./overview.md)
+- [Release notes](./release-notes.md)
+
+</div>
+
+</div>
+
+<div style={{flex: '1', minWidth: '160px', display: 'flex', flexDirection: 'column', gap: '0.6rem'}}>
+
+<div style={{background: 'var(--ifm-card-background-color)', border: '1px solid var(--ifm-color-emphasis-400)', borderRadius: '10px', padding: '0.75rem 1rem'}}>
+
+### Installation
+
+- [Installation](./installation.md)
+
+</div>
+
+</div>
+
+<div style={{flex: '1', minWidth: '160px', display: 'flex', flexDirection: 'column', gap: '0.6rem'}}>
+
+<div style={{background: 'var(--ifm-card-background-color)', border: '1px solid var(--ifm-color-emphasis-400)', borderRadius: '10px', padding: '0.75rem 1rem'}}>
+
+### Operation
+
+- [Operation](./operation.md)
+
+</div>
+
+</div>
+
+</div>

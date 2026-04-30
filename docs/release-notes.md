@@ -1,20 +1,32 @@
-# Release Notes Exigen 21.0
+---
+sidebar_label: 'Release notes'
+title: Exigen Connector release notes
+description: "Version history and change details for the Exigen Connector, including new features, improvements, and bug fixes."
+tags:
+  - Reference
+  - System Administrator
+  - Automation Engineer
+  - Getting Started
+---
 
-## General
+# Exigen Connector release notes
 
-The release removes log4j and replaces it with slj4j and logback.
+## 21
 
-## Migration Considerations
+### 21.0.0
 
-This release includes the new format installer where the files are extracted from the zip file into the desired directory. 
-It contains an embedded java version for the connector so there is no reliance on installed Java versions.
+**Released:** 2022
 
-The configuration file has been changed from Agent.config to Connector.config.
+### What's new
 
-### New Features
+:eight_spoked_asterisk: **CONNUTIL-522**: Removed log4j as the logging component and replaced it with slf4j and logback to address CVE-2021-44228.
 
-### Fixes
+### Why this matters
 
-**CONNUTIL-522**    
-                    Update Exigen Connector for CVE-2021-44228 (remove log4j as the logging component and replace with slf4j and logback).
-			
+Removing log4j eliminates exposure to CVE-2021-44228, a critical remote code execution vulnerability. The connector now uses slf4j and logback for logging, which are not affected by this vulnerability.
+
+### Migration notes
+
+- This release uses a new installer format. Extract the files from the zip file into the desired directory.
+- The connector includes an embedded Java environment, eliminating any dependency on Java versions installed on the host system.
+- The configuration file has been renamed from `Agent.config` to `Connector.config`. Update any references to the configuration file path after upgrading.
