@@ -84,9 +84,15 @@ The **CREATE** and **START** operations require a failure criteria definition. E
 
 ## Logging and job output
 
-The connector maintains a rotating set of up to five log files. Log files contain information about the connector and all jobs it runs, including error messages and return codes.
+The connector writes its log files into the `log` directory under the connector installation root (for example, `C:\ExigenConnector\log`), inside a subdirectory named for the current month. Each file is named for the connector and the date, with an index — for example `log\2026-09\exigen_2026-09-16.0.log`. A new file starts each day, and the index increments when a file reaches 100 MB.
 
-Log files are located in the `log` directory under the connector installation root (for example, `C:\ExigenConnector\log`). Information is appended to the log files as jobs run.
+Log files contain information about the connector and all jobs it runs, including error messages and return codes.
+
+:::caution
+
+Log files are retained indefinitely unless you configure pruning. Include the `log` directory in whatever disk monitoring you apply to the connector host.
+
+:::
 
 ## FAQs
 
@@ -100,7 +106,7 @@ Yes. Add one entry per job in the **Job Parameters** tab. Each entry associates 
 Code `5` means the job group already exists in Exigen. This typically occurs when a **CREATE** operation is run for a group that was not cleaned up from a previous run.
 
 **How many log files does the connector keep?**
-The connector keeps up to five rotating log files. When the maximum is reached, the oldest log file is overwritten.
+There is no limit. A new log file starts each day, and files roll to a new index when they reach 100 MB. Nothing is overwritten and nothing is removed automatically, so the `log` directory grows until you prune it.
 
 **What happens if the Exigen web service is unavailable?**
 The connector will fail with an error and return a non-zero completion code to OpCon. Check the log files in the `log` directory for details.
