@@ -1,4 +1,10 @@
 ---
+title: Exigen Connector
+description: "Start and monitor Exigen batch job groups from OpCon: installation, configuration, and operation reference."
+tags:
+  - Conceptual
+  - System Administrator
+  - Exigen Connector
 slug: '/'
 sidebar_label: 'Exigen Connector'
 hide_table_of_contents: true

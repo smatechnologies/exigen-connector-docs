@@ -15,7 +15,7 @@ tags:
 
 ### 21.0.0
 
-**Released:** 2022
+**Released:** 2022 January
 
 ### What's new
 

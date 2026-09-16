@@ -13,7 +13,7 @@ tags:
 
 ## What is it?
 
-The Exigen Connector integrates OpCon with the Exigen insurance platform (EIS Group) by starting batch jobs within the Exigen environment and reporting completion status back to OpCon. The connector runs as a Windows batch program executed by the Windows Agent, allowing OpCon to manage Exigen job processing as part of a larger automation schedule.
+The Exigen Connector integrates OpCon with the Exigen insurance platform (EIS Group) by starting batch jobs within the Exigen environment and reporting completion status back to OpCon. The connector runs as a Java program under the Windows Agent, with a runtime supplied by the installer, allowing OpCon to manage Exigen job processing as part of a larger automation schedule.
 
 - Use this connector when you need OpCon to trigger and monitor Exigen batch jobs alongside other automated processes
 - Use this connector when you need completion status from Exigen jobs reported back into OpCon for downstream dependency management
@@ -21,7 +21,7 @@ The Exigen Connector integrates OpCon with the Exigen insurance platform (EIS Gr
 
 ## How the connector works
 
-The Exigen Connector is implemented as a Windows batch program that the Windows Agent executes. Job definitions are entered in OpCon as Windows jobs using the Exigen job subtype. When OpCon schedules a job, the definitions are passed as arguments to the connector.
+The Exigen Connector is a Java program that the Windows Agent runs, using the Java runtime supplied by the installer. Job definitions are entered in OpCon as Windows jobs using the Exigen job subtype. When OpCon schedules a job, the definitions are passed as arguments to the connector.
 
 The connector uses the `BatchJobTrigger.wsdl` definition to define web service endpoints. Job definition information received from OpCon is mapped to the appropriate structures, and the web service is called.
 

@@ -45,7 +45,7 @@ After extraction, the installation root directory contains the following:
 
 | Item | Description |
 |---|---|
-| Connector executable | The main connector program |
+| `exigen.exe` | The connector program |
 | `Connector.config` | The connector configuration file |
 | `java\` | The embedded Java runtime |
 | `wsdl\BatchJobTrigger.wsdl` | The web service definition file |
@@ -61,7 +61,7 @@ To install the Exigen job subtype in Enterprise Manager, complete the following 
 
 2. Restart Enterprise Manager. The **Exigen** job subtype is available when you select a Windows job type.
 
-   **NOTE:** If the job subtype does not appear after restart, close Enterprise Manager and reopen it using **Run as Administrator**. After this initial launch, you can use Enterprise Manager normally.
+   **NOTE:** If the job subtype does not appear after restart, close Enterprise Manager and reopen it using **Run as Administrator**. After opening it this way once, you can use Enterprise Manager normally.
 
 3. In OpCon, create a global property named `ExigenPath` and set its value to the full path of the connector installation directory.
 
@@ -77,8 +77,8 @@ The `Connector.config` file defines the web service address, endpoint, and WSDL 
 
 | Property | Description |
 |---|---|
-| `CONNECTOR_NAME` | The name of the connector. Do not change this value. |
-| `DEBUG` | Enables debug logging. Set to `ON` to capture detailed log output for troubleshooting, or `OFF` for normal operation. Default: `OFF`. |
+| `CONNECTOR_NAME` | The name the connector records in its own log output. It has no other effect. |
+| `DEBUG` | Enables debug logging. Set to `ON` to capture detailed log output for troubleshooting, or `OFF` for normal operation. Required — the connector does not start if this setting is absent, so set it to `OFF` rather than removing it. The file supplied with the connector sets it to `OFF`. |
 | `EXIGEN_SERVER_ADDRESS` | The address of the Exigen web server. This value overwrites the web server address in the supplied WSDL file. |
 | `EXIGEN_SERVICE_ENDPOINT` | The web service endpoint used when calling the Exigen web service. |
 | `EXIGEN_WSDL_LOCATION` | The path to the `BatchJobTrigger.wsdl` file, relative to the installation directory. Do not change this value. |
